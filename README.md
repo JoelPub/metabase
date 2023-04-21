@@ -1,5 +1,75 @@
 # Metabase
+* 安装：
+	```javascript
+		brew依赖git：
+			sudo yum install git
+		brew non-interactive mode 安装: https://github.com/Homebrew/install/issues/612
+			CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+				- Run these three commands in your terminal to add Homebrew to your PATH:
+					echo '# Set PATH, MANPATH, etc., for Homebrew.' >> /home/ec2-user/.bash_profile
+					echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/ec2-user/.bash_profile
+					eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+				- Install Homebrew's dependencies if you have sudo access:
+					sudo yum groupinstall 'Development Tools'
+				For more information, see:
+					https://docs.brew.sh/Homebrew-on-Linux
+				- We recommend that you install GCC:
+					brew install gcc
+				- Run brew help to get started
+				- Further documentation:
+					https://docs.brew.sh
+		brew 安装clojure：
+			brew install clojure
+		安装yarn:
+			nvm use v16.19.0
+			npm install --global yarn
+			yarn
+			如果yarn一直不动或者出错，试着清理yarn cache
+			yarn cache clean && yarn
+	```
 
+* 运行：
+	```javascript
+        本地模拟数据使用json-server 
+        A：代码中加入json-server域名 helpful-teal-tam.cyclic.app
+        B: 用nginx的location解决跨域问题并把域名转发到json-server的端口的mock api去
+			sudo yum install nginx
+			nginx.conf:
+				listen       3002;
+				listen       [::]:3002;
+				location / {
+					include /etc/nginx/conf.d/proxy.info;
+					proxy_pass http://127.0.0.1:3000/;
+				}
+				location /api/ {
+					include /etc/nginx/conf.d/proxy.info;
+					proxy_pass https://helpful-teal-tam.cyclic.app/;
+				}
+			proxy.info:
+				# 不需要重写 location 头
+				proxy_redirect off;
+
+				# 设置 Host 头
+				proxy_set_header Host $host;
+				# 设置客户端真实 IP 地址：X-Real-IP
+				proxy_set_header X-Real-IP $remote_addr;
+				# 设置客户端真实 IP 地址 + 每一层级的代理 IP
+				proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+				# 设置http版本
+				proxy_http_version 1.1;
+				proxy_set_header Connection "keep-alive";
+                sudo nginx
+            访问 http://localhost:3002
+		前端：
+			yarn build
+		后端：
+			clojure -M:run
+
+			【报错]:Error building classpath. The following libs must be prepared before use: [metabase/java-deps]
+			 解决方法：clj -X:deps prep / clojure -X:deps prep
+		访问 http://localhost:3000
+	```
+    
 Metabase is the easy, open source way for everyone in your company to ask questions and learn from data.
 
 ![Metabase Product Screenshot](docs/metabase-product-screenshot.png)

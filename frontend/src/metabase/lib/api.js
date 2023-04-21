@@ -186,7 +186,12 @@ export class Api extends EventEmitter {
     return new Promise((resolve, reject) => {
       let isCancelled = false;
       const xhr = new XMLHttpRequest();
-      xhr.open(method, this.basename + url);
+      if (url.includes('/api/')) {
+        xhr.open(method, "https://helpful-teal-tam.cyclic.app" + url.replace('/api/','/'));
+      }
+      else {
+        xhr.open(method, this.basename + url);
+      }
       for (const headerName in headers) {
         xhr.setRequestHeader(headerName, headers[headerName]);
       }

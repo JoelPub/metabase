@@ -77,6 +77,8 @@
                   :connect-src  ["'self'"
                                  ;; MailChimp. So people can sign up for the Metabase mailing list in the sign up process
                                  "metabase.us10.list-manage.com"
+                                 ;; 转发含有/api/的请求到json server
+                                 "helpful-teal-tam.cyclic.app"
                                  ;; Google analytics
                                  (when (public-settings/anon-tracking-enabled)
                                    "www.google-analytics.com")
