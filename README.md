@@ -30,7 +30,7 @@
 
 * 运行：
 	```javascript
-        本地模拟数据使用json-server 
+        本地模拟数据有两种方法使用json-server 
         A：代码中加入json-server域名 helpful-teal-tam.cyclic.app
         B: 用nginx的location解决跨域问题并把域名转发到json-server的端口的mock api去
 			sudo yum install nginx
@@ -67,6 +67,9 @@
 
 			【报错]:Error building classpath. The following libs must be prepared before use: [metabase/java-deps]
 			 解决方法：clj -X:deps prep / clojure -X:deps prep
+		Docker：
+			docker build . -t metabase
+			docker run -p 3000:3000 metabase
 		访问 http://localhost:3000
 	```
     
