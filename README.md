@@ -1,4 +1,4 @@
-# Metabase (gitpod)
+# Metabase (gitpod>codespace)
 * 安装：
 	```javascript
 		brew依赖git：
