@@ -31,7 +31,7 @@
 * 运行：
 	```javascript
         本地模拟数据有两种方法使用json-server 
-        A：代码中加入json-server域名 helpful-teal-tam.cyclic.app
+        A：代码中加入json-server域名  drab-puce-foal-yoke.cyclic.app
         B: 用nginx的location解决跨域问题并把域名转发到json-server的端口的mock api去
 			sudo yum install nginx
 			nginx.conf:
@@ -43,7 +43,7 @@
 				}
 				location /api/ {
 					include /etc/nginx/conf.d/proxy.info;
-					proxy_pass https://helpful-teal-tam.cyclic.app/;
+					proxy_pass https://drab-puce-foal-yoke.cyclic.app/;
 				}
 			proxy.info:
 				# 不需要重写 location 头
@@ -60,9 +60,9 @@
 				proxy_set_header Connection "keep-alive";
                 sudo nginx
             访问 http://localhost:3002
-		前端：
-			yarn build
-		后端：
+		一个终端运行前端：
+			yarn build-hot
+		再开一个终端运行后端：
 			clojure -M:run
 
 			【报错]:Error building classpath. The following libs must be prepared before use: [metabase/java-deps]

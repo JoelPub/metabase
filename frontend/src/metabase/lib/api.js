@@ -187,7 +187,7 @@ export class Api extends EventEmitter {
       let isCancelled = false;
       const xhr = new XMLHttpRequest();
       if (url.includes('/api/')) {
-        xhr.open(method, "https://helpful-teal-tam.cyclic.app" + url.replace('/api/','/'));
+        xhr.open(method, "https://drab-puce-foal-yoke.cyclic.app" + url.replace('/api/','/'));
       }
       else {
         xhr.open(method, this.basename + url);
